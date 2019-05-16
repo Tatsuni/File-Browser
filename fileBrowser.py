@@ -113,9 +113,8 @@ class FileBrowser(QMainWindow):
         self.show()
 
     def populateTableView(self):
-        os.chdir(self.location)
         self.filePaths = os.listdir(self.location)
-        self.currentFiles = list(map(lambda filePath: FileBrowserFile(os.path.abspath(filePath)), self.filePaths))
+        self.currentFiles = list(map(lambda filePath: FileBrowserFile(os.path.join(self.location, filePath)), self.filePaths))
         viewModel = FileModel((self.currentFiles))
 
         self.tableView.setModel(viewModel)
