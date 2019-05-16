@@ -13,12 +13,12 @@ fileExtensions = {
     ".zip" : "Zip File",
     ".html" : "HTML File",
     ".py" : "Python File",
-    ".dat" : "DAT File",
     ".ini" : "Configuration File"
 }
 
 class FileBrowserFile():
     def __init__(self, path):
+        self.Path = path
         self.Name = os.path.basename(path)
         self.Type = self.getFileType(path)
         self.Size = str(math.ceil(os.path.getsize(path) / 1024)) + " kb"
@@ -26,7 +26,7 @@ class FileBrowserFile():
     def getFileType(self, path):
         placeHolderString = ""
         if Path(path).suffix in fileExtensions:
-            return fileExtensions.get(Path(path).suffix, False)
+            return fileExtensions.get(Path(path).suffix.lower(), False)
         elif os.path.isdir(path) == True:
             return "Directory"
         else:
